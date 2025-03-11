@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+
+@config "../../tailwind.config.js";
+
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --body-margin-left: max(16px, env(safe-area-inset-left));
+    --body-margin-right: max(16px, env(safe-area-inset-right));
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
+      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-wrap: break-word;
+  }
+
+  .content {
+    padding-right: var(--body-margin-right);
+    padding-left: var(--body-margin-left);
+  }
+
+  * {
+    --scrollbar-size: 16px;
+    --scrollbar-color: var(--gray-200);
+    scrollbar-color: var(--scrollbar-color) transparent;
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    width: var(--scrollbar-size);
+    height: var(--scrollbar-size);
+  }
+}
+
+html.dark .astro-code,
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+pre {
+  position: relative;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  tab-size: 2;
+}
+
+pre code {
+  display: inline-block;
+  min-width: 100%;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.copy-code {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: var(--shiki-light-bg);
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem;
+  cursor: pointer;
+  color: var(--shiki-light-text-decoration);
+  transition: all 0.2s ease;
+}
+
+.copy-code:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+html.dark .copy-code {
+  background: var(--shiki-dark-bg);
+  color: var(--shiki-dark-text-decoration);
+}
+
+.copy-code svg {
+  width: 20px;
+  height: 20px;
+}

@@ -1,0 +1,191 @@
+---
+interface Props {
+  headings: {
+    depth: number;
+    slug: string;
+    text: string;
+  }[];
+}
+
+const { headings } = Astro.props;
+
+const toc = headings.filter(({ depth }) => depth > 1 && depth < 4);
+
+const tocId = Math.random().toString(36).substring(2, 15);
+
+const h2Count = toc.filter(({ depth }) => depth === 2).length;
+---
+
+<div
+  class="toc-container not-prose mb-4 rounded-lg border border-gray-400 dark:border-gray-500 overflow-hidden"
+>
+  <button
+    id={`toc-toggle-${tocId}`}
+    class="flex w-full items-center justify-between px-4 py-2.5 text-left text-sm font-medium text-gray-900 dark:text-gray-100 hover:opacity-70 transition-colors duration-200"
+    aria-expanded="false"
+    aria-controls={`toc-content-${tocId}`}
+  >
+    <div class="flex items-center gap-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 text-gray-500 dark:text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h7"></path>
+      </svg>
+      <span>Table of Contents</span>
+      <span class="text-xs text-gray-500 dark:text-gray-400">({h2Count})</span>
+    </div>
+    <svg
+      id={`toc-chevron-${tocId}`}
+      class="h-4 w-4 transform transition-transform duration-200 text-gray-400"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
+  <div
+    id={`toc-content-${tocId}`}
+    class="toc-content hidden border-t border-gray-400 dark:border-gray-500"
+    role="region"
+    aria-labelledby={`toc-toggle-${tocId}`}
+  >
+    <div class="px-4 py-3">
+      <ul class="space-y-2 text-[14px]">
+        {
+          toc.map((heading, index) => (
+            <li class={`group ${heading.depth === 3 ? 'pl-5 text-[13px]' : ''}`}>
+              <a
+                href={`#${heading.slug}`}
+                class="relative flex items-baseline hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                data-toc-link
+              >
+                {heading.depth === 2 && (
+                  <span class="inline-block w-5 text-xs text-gray-400 dark:text-gray-500 font-mono">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                )}
+                <span class="group-hover:underline underline-offset-4">{heading.text}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupTOC() {
+    const cleanupFunctions: (() => void)[] = [];
+
+    document.querySelectorAll('[id^="toc-toggle-"]').forEach((toggle) => {
+      const id = toggle.id.replace('toc-toggle-', '');
+      const content = document.getElementById(`toc-content-${id}`);
+      const chevron = document.getElementById(`toc-chevron-${id}`);
+
+      if (toggle && content && chevron) {
+        const handleClick = () => {
+          const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', (!isExpanded).toString());
+          content.classList.toggle('hidden');
+          chevron.classList.toggle('rotate-180');
+        };
+
+        toggle.addEventListener('click', handleClick);
+        cleanupFunctions.push(() => toggle.removeEventListener('click', handleClick));
+      }
+    });
+
+    document.querySelectorAll('[data-toc-link]').forEach((link) => {
+      const handleClick = (e: Event) => {
+        e.preventDefault();
+        const href = (link as HTMLAnchorElement).getAttribute('href');
+        if (href) {
+          const targetId = href.replace('#', '');
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            const headerOffset = parseInt(
+              getComputedStyle(document.documentElement).getPropertyValue('--toc-header-offset')
+            );
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth',
+            });
+
+            targetElement.setAttribute('tabindex', '-1');
+            targetElement.focus({ preventScroll: true });
+          }
+        }
+      };
+
+      link.addEventListener('click', handleClick);
+      cleanupFunctions.push(() => link.removeEventListener('click', handleClick));
+    });
+
+    // Cleanup function
+    return () => cleanupFunctions.forEach((cleanup) => cleanup());
+  }
+
+  let cleanup: (() => void) | undefined;
+
+  function init() {
+    // Cleanup previous event listeners if any
+    if (cleanup) cleanup();
+    cleanup = setupTOC();
+  }
+
+  // Run on initial load
+  document.addEventListener('DOMContentLoaded', init);
+
+  // Run on view transitions
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  :root {
+    --toc-header-offset: 80px;
+    --toc-animation-duration: 0.2s;
+    --toc-border-color: rgb(156 163 175); /* gray-400 */
+    --toc-dark-border-color: rgb(107 114 128); /* gray-500 */
+  }
+
+  .toc-content {
+    transition: all var(--toc-animation-duration) ease-in-out;
+  }
+
+  .toc-content:not(.hidden) {
+    animation: slideDown var(--toc-animation-duration) ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  :global(h2:focus, h3:focus) {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+    border-radius: 0.25rem;
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  pageTitle: string;
+  description: string;
+  type?: string;
+  image?: string;
+  keywords?: string[];
+  canonicalURL?: string;
+  siteTitle?: string;
+}
+
+const {
+  pageTitle,
+  description,
+  type = 'website',
+  image = '/images/default-og.png',
+  keywords = [],
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).toString(),
+  siteTitle = 'Portfolio',
+} = Astro.props;
+---
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <ClientRouter />
+
+  <!-- Primary Meta Tags -->
+  <title>{`${pageTitle} | ${siteTitle}`}</title>
+  <meta name="title" content={`${pageTitle} | ${siteTitle}`} />
+  <meta name="description" content={description} />
+  <meta name="keywords" content={keywords.join(', ')} />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={Astro.url} />
+  <meta property="og:title" content={`${pageTitle} | ${siteTitle}`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(image, Astro.url)} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={Astro.url} />
+  <meta property="twitter:title" content={`${pageTitle} | ${siteTitle}`} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+  <!-- Performance Optimizations -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+  <!-- Resource Hints -->
+  <link rel="preload" href={image} as="image" />
+
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
+
+  <!-- Dark mode script -->
+  <script is:inline>
+    if (typeof localStorage !== 'undefined') {
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    }
+  </script>
+
+  <slot />
+</head>

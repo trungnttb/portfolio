@@ -1,0 +1,37 @@
+---
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<section class={className}>
+  <h2 class="text-2xl font-bold pb-4">Bio</h2>
+  <div class="space-y-4">
+    <div class="flex items-start">
+      <div class="w-36 font-medium">2013</div>
+      <div>Completed the Higher Diplomacy in Software Engineering of FPT Aptech</div>
+    </div>
+    <div class="flex items-start">
+      <div class="w-36 font-medium">2014</div>
+      <div>Worked as a Java Developer at VietSoftware</div>
+    </div>
+    <div class="flex items-start">
+      <div class="w-36 font-medium">2015</div>
+      <div>Worked as a Java Developer at FPT Software</div>
+    </div>
+    <div class="flex items-start">
+      <div class="w-36 font-medium">2017</div>
+      <div>Worked as a Web Developer at OneEmpower</div>
+    </div>
+    <div class="flex items-start">
+      <div class="w-36 font-medium">2019 to present</div>
+      <div>Working at FPT Software</div>
+    </div>
+    <div class="flex items-start">
+      <div class="w-36 font-medium">~</div>
+      <div>Working as a freelancer</div>
+    </div>
+  </div>
+</section>

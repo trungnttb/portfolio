@@ -1,0 +1,148 @@
+[
+  {
+    "title": "'Tạo và Sử dụng Custom Hooks trong React'",
+    "description": "'Hướng dẫn chi tiết cách tạo và sử dụng Custom Hooks để tái sử dụng logic trong React'",
+    "url": "/notes/custom-hooks-trong-react",
+    "tags": [
+      "react",
+      "hooks",
+      "javascript"
+    ],
+    "pubDate": "'2024-03-01'"
+  },
+  {
+    "title": "'Giới thiệu về Astro: Framework xây dựng web hiệu năng cao'",
+    "description": "'Khám phá Astro - framework hiện đại giúp xây dựng website nhanh hơn với hiệu năng tối ưu'",
+    "url": "/notes/gioi-thieu-astro",
+    "tags": [
+      "astro",
+      "jamstack",
+      "frontend",
+      "web-development"
+    ],
+    "pubDate": "2023-07-15"
+  },
+  {
+    "title": "'React Query: Giải Pháp Toàn Diện Cho Quản Lý State Server'",
+    "description": "'Tìm hiểu cách sử dụng React Query để quản lý state server một cách hiệu quả trong ứng dụng React'",
+    "url": "/notes/react-query-quan-ly-state-server",
+    "tags": [
+      "react",
+      "typescript",
+      "state-management"
+    ],
+    "pubDate": "'2024-03-01'"
+  },
+  {
+    "title": "'Hiểu về Server Components trong Next.js 14'",
+    "description": "'Tìm hiểu cách sử dụng Server Components trong Next.js 14 để tối ưu hiệu suất ứng dụng'",
+    "url": "/notes/server-components-nextjs",
+    "tags": [
+      "nextjs",
+      "react",
+      "server-components"
+    ],
+    "pubDate": "'2024-03-02'"
+  },
+  {
+    "title": "'Tối Ưu Hiệu Năng Trong React: Hướng Dẫn Chi Tiết'",
+    "description": "'Khám phá các kỹ thuật và phương pháp tối ưu hiệu năng trong React để xây dựng ứng dụng nhanh và mượt mà'",
+    "url": "/notes/toi-uu-hieu-nang-trong-react",
+    "tags": [
+      "react",
+      "performance",
+      "typescript"
+    ],
+    "pubDate": "'2024-02-25'"
+  },
+  {
+    "title": "'Tối Ưu Hóa Hiệu Năng Trong Next.js: Hướng Dẫn Toàn Diện'",
+    "description": "'Khám phá các kỹ thuật và phương pháp tối ưu hiệu năng trong Next.js để xây dựng ứng dụng web nhanh và mượt mà'",
+    "url": "/notes/toi-uu-hoa-hieu-nang-nextjs",
+    "tags": [
+      "nextjs",
+      "performance",
+      "typescript"
+    ],
+    "pubDate": "'2024-03-02'"
+  },
+  {
+    "title": "'Tạo Animation Chuyển Trang Mượt Mà với Astro View Transitions'",
+    "description": "'Hướng dẫn sử dụng View Transitions API trong Astro để tạo hiệu ứng chuyển trang mượt mà'",
+    "url": "/notes/view-transitions-astro",
+    "tags": [
+      "astro",
+      "animation",
+      "typescript"
+    ],
+    "pubDate": "'2024-03-03'"
+  },
+  {
+    "title": "'Xây Dựng Authentication Với Next.js và NextAuth.js'",
+    "description": "'Hướng dẫn chi tiết cách triển khai hệ thống xác thực người dùng trong Next.js sử dụng NextAuth.js, bao gồm đăng nhập với OAuth và credentials'",
+    "url": "/notes/xay-dung-authentication-voi-nextjs",
+    "tags": [
+      "nextjs",
+      "authentication",
+      "typescript"
+    ],
+    "pubDate": "'2024-02-24'"
+  },
+  {
+    "title": "'Xây Dựng Blog Cá Nhân Với Astro và Markdown'",
+    "description": "'Hướng dẫn chi tiết cách tạo một blog cá nhân sử dụng Astro, Markdown và các tính năng mới nhất của Astro Content Collections'",
+    "url": "/notes/xay-dung-blog-voi-astro-markdown",
+    "tags": [
+      "astro",
+      "markdown",
+      "typescript"
+    ],
+    "pubDate": "'2024-02-28'"
+  },
+  {
+    "title": "'Xây Dựng Blog Cá Nhân Với Astro và Tailwind CSS'",
+    "description": "'Hướng dẫn chi tiết cách tạo một blog cá nhân sử dụng Astro và Tailwind CSS, với thiết kế đẹp và hiệu năng cao'",
+    "url": "/notes/xay-dung-blog-voi-astro-tailwind",
+    "tags": [
+      "astro",
+      "tailwind",
+      "typescript"
+    ],
+    "pubDate": "'2024-02-23'"
+  },
+  {
+    "title": "'Xây Dựng Ứng Dụng E-commerce Với Next.js và Stripe'",
+    "description": "'Hướng dẫn chi tiết cách tạo một ứng dụng e-commerce hoàn chỉnh sử dụng Next.js App Router và tích hợp thanh toán với Stripe'",
+    "url": "/notes/xay-dung-ecommerce-nextjs-stripe",
+    "tags": [
+      "nextjs",
+      "stripe",
+      "typescript",
+      "e-commerce"
+    ],
+    "pubDate": "'2024-02-27'"
+  },
+  {
+    "title": "'Xây Dựng Ứng Dụng Chat Realtime Với React và Firebase'",
+    "description": "'Hướng dẫn chi tiết cách tạo một ứng dụng chat realtime sử dụng React và Firebase, bao gồm xác thực người dùng và cơ sở dữ liệu realtime'",
+    "url": "/notes/xay-dung-ung-dung-chat-voi-react-firebase",
+    "tags": [
+      "react",
+      "firebase",
+      "typescript",
+      "realtime"
+    ],
+    "pubDate": "'2024-02-29'"
+  },
+  {
+    "title": "'Xây Dựng Ứng Dụng Quản Lý Công Việc Với React và TypeScript'",
+    "description": "'Hướng dẫn chi tiết cách tạo một ứng dụng quản lý công việc (Task Management) sử dụng React, TypeScript và các thư viện hiện đại'",
+    "url": "/notes/xay-dung-ung-dung-quan-ly-cong-viec",
+    "tags": [
+      "react",
+      "typescript",
+      "state-management"
+    ],
+    "pubDate": "'2024-02-26'"
+  }
+]

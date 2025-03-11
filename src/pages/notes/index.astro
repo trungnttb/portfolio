@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import BlogPost from '../../components/astro/BlogPost.astro';
+import SearchBar from '../../components/react/SearchBar';
+import { getTagColor } from '../../config/tags';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+
+const metadata = {
+  pageTitle: 'Notes',
+  description: 'Articles about programming, technology and web development.',
+  type: 'blog',
+};
+---
+
+<BaseLayout {...metadata}>
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-gray-100">Notes</h1>
+      <SearchBar client:load placeholder="Search articles..." />
+    </div>
+
+    <div class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Topics</h2>
+      <div class="flex flex-wrap gap-3">
+        {
+          allTags.map((tag) => (
+            <a
+              href={`/tags/${tag}`}
+              class={`px-4 py-2 rounded-full text-sm font-medium transition-colors hover:opacity-80 ${getTagColor(tag)}`}
+            >
+              {tag}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="space-y-8">
+      {
+        posts.map((post) => (
+          <BlogPost
+            title={post.data.title}
+            url={`/notes/${post.slug}`}
+            pubDate={post.data.pubDate}
+            description={post.data.description}
+            tags={post.data.tags}
+          />
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>

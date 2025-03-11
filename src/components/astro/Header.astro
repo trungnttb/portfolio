@@ -1,0 +1,27 @@
+---
+import ThemeSwitcher from '../react/ThemeSwitcher';
+import Navigation from './Navigation.astro';
+---
+
+<header
+  class="bg-[#f0e7db] dark:bg-zinc-900 header fixed w-full py-2 pl-[var(--body-margin-left)] pr-[var(--body-margin-right)] z-20"
+>
+  <div class="mx-auto max-w-3xl">
+    <nav class="flex items-center gap-3 text-base">
+      <a href="/" class="group flex items-center gap-2" aria-label="Go to homepage">
+        <img
+          src="/images/logo.svg"
+          alt=""
+          class="w-8 h-8 transition-transform duration-200 group-hover:scale-110"
+          aria-hidden="true"
+        />
+        <span>Trung Nguyen</span>
+      </a>
+
+      <div class="flex-1 flex items-center justify-end gap-4">
+        <Navigation />
+        <ThemeSwitcher client:load />
+      </div>
+    </nav>
+  </div>
+</header>

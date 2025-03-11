@@ -1,0 +1,127 @@
+---
+import { Image } from 'astro:assets';
+import Bio from '../components/astro/Bio.astro';
+import LatestPosts from '../components/astro/LatestPosts.astro';
+import { BlurFade } from '../components/react/BlurFade';
+import {
+  AIIcon,
+  CoffeeIcon,
+  DatabaseIcon,
+  JavaIcon,
+  JavaScriptIcon,
+  NextJSIcon,
+  ReactJSIcon,
+  SpringIcon,
+} from '../components/react/Icons';
+import { OrbitingCircles } from '../components/react/OrbitingCircles';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = 'Home Page';
+const description = 'Welcome to Trung Nguyen portfolio website';
+---
+
+<BaseLayout pageTitle={pageTitle} description={description}>
+  <BlurFade client:load delay={0.1}>
+    <section
+      class="relative flex h-[450px] w-full flex-col items-center justify-center overflow-hidden rounded-lg"
+    >
+      <div
+        class="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-black"
+      >
+        <Image src="/images/character.png" alt="Avatar" width="200" height="200" />
+      </div>
+      <OrbitingCircles
+        className="size-[40px] border-none bg-transparent"
+        duration={30}
+        delay={5}
+        radius={145}
+        path={false}
+      >
+        <JavaScriptIcon />
+      </OrbitingCircles>
+      <OrbitingCircles
+        className="size-[45px] border-none bg-transparent dark:bg-zinc-100"
+        duration={30}
+        delay={12}
+        radius={145}
+        path={false}
+      >
+        <CoffeeIcon />
+      </OrbitingCircles>
+      <OrbitingCircles
+        className="size-[40px] border-none bg-transparent"
+        duration={30}
+        delay={19}
+        radius={160}
+        path={false}
+      >
+        <ReactJSIcon />
+      </OrbitingCircles>
+      <OrbitingCircles
+        className="size-[40px] border-none bg-transparent"
+        duration={30}
+        delay={26}
+        radius={135}
+        path={false}
+      >
+        <NextJSIcon />
+      </OrbitingCircles>
+
+      <OrbitingCircles
+        className="size-[35px] border-none bg-transparent"
+        radius={200}
+        duration={40}
+        delay={0}
+        path={false}
+        reverse
+      >
+        <SpringIcon />
+      </OrbitingCircles>
+      <OrbitingCircles
+        className="size-[50px] border-none bg-transparent dark:bg-zinc-100"
+        radius={200}
+        duration={40}
+        delay={8}
+        path={false}
+        reverse
+      >
+        <AIIcon />
+      </OrbitingCircles>
+      <OrbitingCircles
+        className="size-[40px] border-none bg-transparent dark:bg-zinc-100"
+        radius={200}
+        duration={40}
+        delay={21}
+        path={false}
+        reverse
+      >
+        <JavaIcon />
+      </OrbitingCircles>
+      <OrbitingCircles
+        className="size-[35px] border-none bg-transparent"
+        radius={200}
+        duration={40}
+        delay={28}
+        path={false}
+        reverse
+      >
+        <DatabaseIcon />
+      </OrbitingCircles>
+    </section>
+  </BlurFade>
+  <BlurFade client:load delay={0.2}>
+    <div
+      class="bg-[#ffffff5c] dark:bg-[#ffffff14] rounded-xl border-none p-2 cursor-pointer flex flex-col items-center justify-center shadow-2xl whitespace-nowrap"
+    >
+      I'm Trung, a Web Developer based in Hanoi.
+    </div>
+  </BlurFade>
+
+  <BlurFade client:load delay={0.4}>
+    <Bio className="pt-8" />
+  </BlurFade>
+
+  <BlurFade client:load delay={0.6}>
+    <LatestPosts className="pt-12" />
+  </BlurFade>
+</BaseLayout>

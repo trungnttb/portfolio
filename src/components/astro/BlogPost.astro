@@ -1,0 +1,48 @@
+---
+import { getTagColor } from '../../config/tags';
+import { formatDate } from '../../utils/date';
+
+interface Props {
+  title: string;
+  url: string;
+  pubDate: Date;
+  description: string;
+  tags: string[];
+}
+
+const { title, url, pubDate, description, tags } = Astro.props;
+---
+
+<article class="group">
+  <a href={url} class="block" aria-label={`Read article: ${title}`}>
+    <div class="flex justify-between items-start gap-4 pb-2">
+      <h3
+        class="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200"
+      >
+        {title}
+      </h3>
+      <time
+        datetime={pubDate.toISOString()}
+        class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap"
+      >
+        {formatDate(pubDate)}
+      </time>
+    </div>
+    <p class="text-gray-700 dark:text-gray-300 pb-2 line-clamp-2">
+      {description}
+    </p>
+    <div class="flex flex-wrap gap-3 text-sm">
+      {
+        tags.map((tag: string) => (
+          <a
+            href={`/tags/${tag}`}
+            class={`hover:underline px-1 ${getTagColor(tag)}`}
+            aria-label={`View all posts tagged with ${tag}`}
+          >
+            #{tag}
+          </a>
+        ))
+      }
+    </div>
+  </a>
+</article>

@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import { getTagColor } from '../../config/tags';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Get all posts
+const allPosts = await getCollection('posts');
+
+// Create a map to count posts for each tag
+const tagCounts = new Map();
+allPosts.forEach((post) => {
+  post.data.tags?.forEach((tag: string) => {
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+  });
+});
+
+// Convert map to array and sort by post count
+const sortedTags = Array.from(tagCounts.entries())
+  .sort((a, b) => b[1] - a[1])
+  .map(([tag]) => tag);
+
+// Group tags based on post count
+const tagGroups = {
+  popular: sortedTags.slice(0, 5),
+  regular: sortedTags.slice(5),
+};
+
+const metadata = {
+  pageTitle: 'Topics',
+  description: 'Explore posts by topics you are interested in.',
+  type: 'tags',
+};
+---
+
+<BaseLayout {...metadata}>
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-gray-100">Topics</h1>
+
+    {
+      tagGroups.popular.length > 0 && (
+        <section class="mb-12">
+          <h2 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-200">Popular Tags</h2>
+          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {tagGroups.popular.map((tag) => (
+              <a
+                href={`/tags/${tag}`}
+                class={`p-6 rounded-lg ${getTagColor(
+                  tag
+                )} hover:opacity-90 transition-opacity group`}
+              >
+                <div class="flex items-center justify-between">
+                  <span class="text-lg font-medium">#{tag}</span>
+                  <span class="bg-white/20 px-2 py-1 rounded text-sm">{tagCounts.get(tag)}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      tagGroups.regular.length > 0 && (
+        <section class="mb-12">
+          <h2 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-200">Regular Tags</h2>
+          <div class="flex flex-wrap gap-3">
+            {tagGroups.regular.map((tag) => (
+              <a
+                href={`/tags/${tag}`}
+                class={`group px-4 py-2 rounded-full ${getTagColor(tag)} hover:opacity-90 transition-opacity`}
+              >
+                <span class="font-medium">#{tag}</span>
+                <span class="ml-2 text-sm opacity-80">({tagCounts.get(tag)})</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </main>
+</BaseLayout>

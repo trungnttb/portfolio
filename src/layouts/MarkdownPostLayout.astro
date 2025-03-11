@@ -1,0 +1,133 @@
+---
+import '../styles/global.css';
+import BaseLayout from './BaseLayout.astro';
+import { formatDate } from '../utils/date';
+import { getTagColor } from '../config/tags';
+import TableOfContents from '../components/astro/TableOfContents.astro';
+
+interface Frontmatter {
+  title: string;
+  description: string;
+  pubDate: Date;
+  author: string;
+  tags: string[];
+}
+
+interface Props {
+  frontmatter: Frontmatter;
+  headings: {
+    depth: number;
+    slug: string;
+    text: string;
+  }[];
+}
+
+const { frontmatter, headings } = Astro.props;
+
+const postMetadata: Parameters<typeof BaseLayout>[0] = {
+  pageTitle: frontmatter.title,
+  description: frontmatter.description,
+  type: 'article',
+  keywords: frontmatter.tags,
+  canonicalURL: Astro.url.href,
+};
+
+const formattedDate = formatDate(frontmatter.pubDate);
+---
+
+<BaseLayout {...postMetadata}>
+  <article
+    aria-labelledby="article-title"
+    class="prose dark:prose-invert mx-auto px-4 prose-headings:mt-0 prose-headings:mb-1 prose-p:my-2"
+  >
+    <header>
+      <h1
+        id="article-title"
+        class="text-center text-4xl font-bold pt-8 text-gray-900 dark:text-gray-100"
+      >
+        {frontmatter.title}
+      </h1>
+      <div class="flex gap-6 justify-center items-center mb-8">
+        <p class="publish-date text-gray-600 dark:text-gray-400">
+          <svg
+            aria-hidden="true"
+            class="inline-block align-middle mr-2"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+          >
+            <path
+              fill="currentColor"
+              d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"
+            ></path>
+          </svg>
+          <time datetime={frontmatter.pubDate.toString()} aria-label="Published date">
+            {formattedDate}
+          </time>
+        </p>
+      </div>
+    </header>
+
+    <div class="flex flex-wrap gap-2 pb-4">
+      {
+        frontmatter.tags.map((tag: string) => (
+          <a
+            href={`/tags/${tag}`}
+            class={`px-4 py-2 rounded-full text-sm font-medium transition-colors hover:opacity-80 no-underline ${getTagColor(tag)}`}
+          >
+            #{tag}
+          </a>
+        ))
+      }
+    </div>
+
+    {headings.length > 0 && <TableOfContents headings={headings} />}
+
+    <div class="pt-4 prose dark:prose-invert" role="main">
+      <slot />
+    </div>
+
+    <footer class="mt-8"></footer>
+  </article>
+</BaseLayout>
+
+<!-- Copy code script -->
+<script>
+  function setupCopyCode() {
+    const copyImg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9 18q-.825 0-1.413-.588T7 16V4q0-.825.588-1.413T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.588 1.413T18 18H9Zm0-2h9V4H9v12Zm-4 6q-.825 0-1.413-.588T3 20V7q0-.425.288-.713T4 6q.425 0 .713.288T5 7v13h10q.425 0 .713.288T16 21q0 .425-.288.713T15 22H5Zm4-6V4v12Z"/></svg>`;
+    const checkMarkImg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4l4.25 4.25ZM5 21q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.588 1.413T19 21H5Z"/></svg>`;
+
+    const preBlocks = Array.from(document.querySelectorAll('pre'));
+
+    for (const preBlock of preBlocks) {
+      if (!preBlock.querySelector('.copy-code')) {
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-code';
+        copyButton.setAttribute('aria-label', 'Copy code to clipboard');
+        copyButton.setAttribute('title', 'Copy code to clipboard');
+        copyButton.innerHTML = copyImg;
+
+        copyButton.addEventListener('click', async () => {
+          const code = preBlock.querySelector('code');
+          const text = code?.innerText || '';
+
+          try {
+            await navigator.clipboard.writeText(text);
+            copyButton.innerHTML = checkMarkImg;
+
+            setTimeout(() => {
+              copyButton.innerHTML = copyImg;
+            }, 700);
+          } catch (error) {
+            console.error('Failed to copy code: ', error);
+          }
+        });
+
+        preBlock.appendChild(copyButton);
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', setupCopyCode);
+  document.addEventListener('astro:page-load', setupCopyCode);
+</script>

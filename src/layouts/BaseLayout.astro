@@ -1,0 +1,36 @@
+---
+import Footer from '../components/astro/Footer.astro';
+import Head from '../components/astro/Head.astro';
+import Header from '../components/astro/Header.astro';
+import { GoToTop } from '../components/react/GoToTop';
+import '../styles/global.css';
+
+export interface Props {
+  pageTitle: string;
+  description: string;
+  type?: string;
+  image?: string;
+  keywords?: string[];
+  canonicalURL?: string;
+}
+
+const props = Astro.props;
+---
+
+<!doctype html>
+<html lang="vi" class="scroll-smooth">
+  <Head {...props} />
+  <body
+    class="m-0 min-h-screen p-0 bg-[#f0e7db] dark:bg-zinc-900 text-zinc-900 dark:text-zinc-300 break-words leading-6 transition-colors duration-500"
+    transition:animate="fade"
+  >
+    <Header />
+    <main id="main-content" class="content pt-16 bg-[#f0e7db] dark:bg-zinc-900">
+      <div class="min-h-[calc(100vh-var(--spacing)*26)] h-full p-4 mx-auto max-w-3xl flex flex-col">
+        <slot />
+      </div>
+    </main>
+    <Footer />
+    <GoToTop client:load />
+  </body>
+</html>
