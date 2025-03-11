@@ -6,9 +6,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://trung.hoha.dev',
 
-  // Tối ưu hiệu suất
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'hover',
@@ -24,7 +23,6 @@ export default defineConfig({
   },
 
   image: {
-    // Tối ưu hình ảnh
     service: {
       entrypoint: 'astro/assets/services/sharp',
     },
@@ -44,7 +42,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
-      // Tối ưu CSS và JS
       cssMinify: true,
       minify: true,
       rollupOptions: {
