@@ -1,6 +1,6 @@
-# Personal Technology Blog
+# Portfolio
 
-A blog sharing knowledge about modern web technologies, focusing on React, JavaScript, and performance optimization techniques.
+"Notes" are personal study records for learning purposes.
 
 ## 🛠️ Tech Stack
 
