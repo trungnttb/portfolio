@@ -20,9 +20,15 @@ const metadata = {
 
 <BaseLayout {...metadata}>
   <main class="max-w-4xl mx-auto px-4 py-12">
-    <div class="mb-12">
-      <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-gray-100">Notes</h1>
-      <SearchBar client:load placeholder="Search articles..." />
+    <div class="mb-8">
+      <h1 class="text-4xl mb-4 font-bold text-gray-900 dark:text-gray-100">Notes</h1>
+      <p class="text-gray-600 dark:text-gray-400">
+        Here are some of my notes on programming, technology and web development.
+      </p>
+      <p class="text-gray-600 dark:text-gray-400 mb-4">
+        "Notes" are personal study records for learning purposes.
+      </p>
+      <SearchBar client:load placeholder="Search notes..." />
     </div>
 
     <div class="mb-12">
