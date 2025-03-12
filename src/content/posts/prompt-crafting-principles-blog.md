@@ -260,7 +260,7 @@ const ProductSchema = {
   createdAt: Date,
   updatedAt: Date
 }
-````
+```
 
 3. Hãy phát triển tính năng theo từng bước sau:
 
@@ -298,7 +298,7 @@ const ProductSchema = {
 
 Vui lòng triển khai đầy đủ code cho cả frontend và backend, với focus vào best practices và error handling.
 
-```
+````
 
 ## Lưu ý quan trọng khi áp dụng các nguyên tắc
 
@@ -315,4 +315,7 @@ Vui lòng triển khai đầy đủ code cho cả frontend và backend, với fo
 Nghệ thuật prompt crafting không phải chỉ là việc đặt câu hỏi đúng - mà là xây dựng một khuôn khổ giao tiếp hiệu quả với AI. Khi kết hợp nguyên tắc 3S (Specific, Structured, Systematic) với các kỹ thuật nâng cao như Chain of Thought, Role Playing, Few-Shot Learning và XML tags, bạn có thể khai thác được tiềm năng tối đa của các mô hình AI như Claude.
 
 Hãy nhớ rằng, prompt tốt nhất là prompt phù hợp với nhu cầu cụ thể của bạn. Thực hành thường xuyên và đừng ngại thử nghiệm các cách tiếp cận khác nhau để tìm ra phương pháp hiệu quả nhất cho trường hợp của bạn.
+
+```
+
 ```

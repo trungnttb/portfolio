@@ -260,7 +260,7 @@ const ProductSchema = {
   createdAt: Date,
   updatedAt: Date
 }
-````
+```
 
 3. Please develop the feature according to these steps:
 
@@ -298,7 +298,7 @@ const ProductSchema = {
 
 Please implement complete code for both frontend and backend, focusing on best practices and error handling.
 
-```
+````
 
 ## Important Notes When Applying These Principles
 
@@ -315,4 +315,7 @@ Please implement complete code for both frontend and backend, focusing on best p
 The art of prompt crafting is not just about asking the right questions - it's about building an effective communication framework with AI. When combining the 3S principle (Specific, Structured, Systematic) with advanced techniques like Chain of Thought, Role Playing, Few-Shot Learning, and XML tags, you can harness the maximum potential of AI models like Claude.
 
 Remember that the best prompt is one that fits your specific needs. Practice regularly and don't be afraid to experiment with different approaches to find the most effective method for your case.
+
+```
+
 ```
